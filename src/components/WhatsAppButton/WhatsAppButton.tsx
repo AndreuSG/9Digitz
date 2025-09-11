@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { WhatsAppButtonProps } from './types';
-import { WHATSAPP_CONSTANTS } from './constants';
 
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ 
-  phoneNumber = WHATSAPP_CONSTANTS.PHONE_NUMBER,
-  message = WHATSAPP_CONSTANTS.DEFAULT_MESSAGE 
+  phoneNumber = '34937374400'
 }) => {
+  const { t } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleWhatsAppClick = () => {
+    const message = t('whatsapp.message');
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
@@ -62,7 +63,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
                 transition={{ duration: 0.3 }}
                 className="whitespace-nowrap overflow-hidden font-medium"
               >
-                {WHATSAPP_CONSTANTS.BUTTON_TEXT}
+                {t('whatsapp.button')}
               </motion.span>
             )}
           </AnimatePresence>
@@ -84,7 +85,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
               exit={{ opacity: 0, y: 10, x: -20 }}
               className="absolute bottom-full left-0 mb-2 bg-slate-800 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg"
             >
-              {WHATSAPP_CONSTANTS.TOOLTIP_TEXT}
+              {t('whatsapp.tooltip')}
               <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800" />
             </motion.div>
           )}
@@ -114,7 +115,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
                 9DIGITZ
               </div>
               <div className="text-slate-600 text-xs leading-relaxed">
-                ¡Hola! 👋 ¿En qué podemos ayudarte hoy?
+                {t('whatsapp.greeting')}
               </div>
             </div>
             <motion.button

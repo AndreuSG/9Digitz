@@ -1,12 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Smartphone } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { WhiteToBlueGradient } from '../BackgroundGradients';
 import { scrollToSection } from '../../utils/scrollUtils';
 import { CallToActionProps } from './types';
-import { CTA_CONSTANTS } from './constants';
 
 const CallToAction: React.FC<CallToActionProps> = () => {
+  const { t } = useLanguage();
+
+  const features = [
+    t('cta.features.security'),
+    t('cta.features.solutions'),
+    t('cta.features.experts'),
+    t('cta.features.support'),
+    t('cta.features.guarantee')
+  ];
+
   return (
     <WhiteToBlueGradient>
       <section className="py-32 relative overflow-hidden">
@@ -30,16 +40,16 @@ const CallToAction: React.FC<CallToActionProps> = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-light mb-6">
-            {CTA_CONSTANTS.TITLE.MAIN}{' '}
-            <span className="text-blue-400 font-medium">{CTA_CONSTANTS.TITLE.HIGHLIGHT}</span>{' '}
-            {CTA_CONSTANTS.TITLE.SUFFIX}
+            {t('cta.title.main')}{' '}
+            <span className="text-blue-400 font-medium">{t('cta.title.highlight')}</span>{' '}
+            {t('cta.title.suffix')}
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            {CTA_CONSTANTS.SUBTITLE}
+            {t('cta.subtitle')}
           </p>
         </motion.div>
 
@@ -48,7 +58,7 @@ const CallToAction: React.FC<CallToActionProps> = () => {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.4 }}
             className="space-y-8"
           >
             <div className="flex flex-col sm:flex-row gap-4">
@@ -63,7 +73,7 @@ const CallToAction: React.FC<CallToActionProps> = () => {
                 </div>
                 <div className="text-left">
                   <div className="text-xs text-slate-400">Consulta</div>
-                  <div className="font-semibold">{CTA_CONSTANTS.BUTTONS.CONSULTATION}</div>
+                  <div className="font-semibold">{t('cta.buttons.consultation')}</div>
                 </div>
               </motion.button>
 
@@ -76,8 +86,8 @@ const CallToAction: React.FC<CallToActionProps> = () => {
                   📞
                 </div>
                 <div className="text-left">
-                  <div className="text-xs text-slate-400">{CTA_CONSTANTS.BUTTONS.CALL}</div>
-                  <div className="font-semibold">{CTA_CONSTANTS.CONTACT.PHONE}</div>
+                  <div className="text-xs text-slate-400">{t('cta.buttons.call')}</div>
+                  <div className="font-semibold">{t('cta.contact.phone')}</div>
                 </div>
               </motion.button>
             </div>
@@ -85,19 +95,19 @@ const CallToAction: React.FC<CallToActionProps> = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               className="bg-white/80 backdrop-blur-xl border border-slate-200 rounded-3xl p-8"
             >
               <h3 className="text-2xl font-semibold text-slate-900 mb-4">
-                ¿Por qué elegir 9DIGITZ?
+                {t('cta.whyChoose.title')}
               </h3>
               <div className="space-y-4">
-                {CTA_CONSTANTS.FEATURES.map((feature, index) => (
+                {features.map((feature, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.25, delay: index * 0.05 }}
                     className="flex items-center space-x-3"
                   >
                     <div className="w-2 h-2 bg-blue-400 rounded-full" />
@@ -112,7 +122,7 @@ const CallToAction: React.FC<CallToActionProps> = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="text-center"
           >
             <motion.div
@@ -130,10 +140,10 @@ const CallToAction: React.FC<CallToActionProps> = () => {
 
             <div className="text-slate-900 mb-4">
               <div className="text-lg font-semibold mb-2">
-                {CTA_CONSTANTS.CONTACT.READY_TITLE}
+                {t('cta.contact.readyTitle')}
               </div>
               <div className="text-slate-600">
-                {CTA_CONSTANTS.CONTACT.READY_SUBTITLE}
+                {t('cta.contact.readySubtitle')}
               </div>
             </div>
 
@@ -150,7 +160,7 @@ const CallToAction: React.FC<CallToActionProps> = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="text-center mt-16"
         >
           <motion.button
@@ -162,11 +172,11 @@ const CallToAction: React.FC<CallToActionProps> = () => {
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#005bb5'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0076e3'}
           >
-            <span>{CTA_CONSTANTS.BUTTONS.MAIN_CTA}</span>
+            <span>{t('cta.buttons.mainCta')}</span>
           </motion.button>
           
           <div className="mt-6 text-slate-600">
-            {CTA_CONSTANTS.FOOTER_TEXT}
+            {t('cta.footerText')}
           </div>
         </motion.div>
       </div>

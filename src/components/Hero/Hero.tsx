@@ -1,17 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { scrollToSection } from '../../utils/scrollUtils';
 import { HeroProps } from './types';
-import { HERO_CONSTANTS } from './constants';
 
 const Hero: React.FC<HeroProps> = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
-          src={HERO_CONSTANTS.BACKGROUND_IMAGE}
+          src="https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
           alt="Cloud Computing"
           className="w-full h-full object-cover"
         />
@@ -39,27 +41,27 @@ const Hero: React.FC<HeroProps> = () => {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           className="text-4xl md:text-6xl lg:text-7xl font-light text-white mb-4 md:mb-6 leading-tight"
         >
-          {HERO_CONSTANTS.TITLE.MAIN}{' '}
-          <span className="text-blue-400 font-medium">{HERO_CONSTANTS.TITLE.HIGHLIGHT}</span>{' '}
-          {HERO_CONSTANTS.TITLE.SUFFIX}
+          {t('hero.title.main')}{' '}
+          <span className="text-white font-medium">{t('hero.title.highlight')}</span>{' '}
+          {t('hero.title.suffix')}
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-lg md:text-xl lg:text-2xl text-slate-300 mb-6 md:mb-8 max-w-3xl mx-auto font-light leading-relaxed"
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="text-lg md:text-xl lg:text-2xl text-white mb-6 md:mb-8 max-w-3xl mx-auto font-light leading-relaxed"
         >
-          {HERO_CONSTANTS.SUBTITLE}
+          {t('hero.subtitle')}
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <motion.button
@@ -71,7 +73,7 @@ const Hero: React.FC<HeroProps> = () => {
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#005bb5'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0076e3'}
           >
-            <span>{HERO_CONSTANTS.BUTTONS.PRIMARY}</span>
+            <span>{t('hero.button.primary')}</span>
             <ArrowRight size={18} />
           </motion.button>
           <motion.button
@@ -80,17 +82,17 @@ const Hero: React.FC<HeroProps> = () => {
             onClick={() => scrollToSection('services')}
             className="border border-slate-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-medium hover:bg-slate-800 transition-colors"
           >
-            {HERO_CONSTANTS.BUTTONS.SECONDARY}
+            {t('hero.button.secondary')}
           </motion.button>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.4 }}
           className="mt-12 md:mt-16 text-slate-400 text-sm"
         >
-          {HERO_CONSTANTS.FOOTER_TEXT}
+          {t('hero.footer')}
         </motion.div>
       </div>
 

@@ -1,12 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Clock, Users, Lightbulb } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { BlueToWhiteGradient } from '../BackgroundGradients';
 import { scrollToSection } from '../../utils/scrollUtils';
 import { ProcessJourneyProps } from './types';
-import { PROCESS_CONSTANTS, PROCESS_STEPS } from './constants';
+import { PROCESS_STEPS } from './constants';
 
 const ProcessJourney: React.FC<ProcessJourneyProps> = () => {
+  const { t } = useLanguage();
+
   return (
     <BlueToWhiteGradient>
       <section id="process" className="py-32">
@@ -14,15 +17,15 @@ const ProcessJourney: React.FC<ProcessJourneyProps> = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-light text-white mb-6">
-            {PROCESS_CONSTANTS.TITLE.MAIN}{' '}
-            <span className="text-blue-400 font-medium">{PROCESS_CONSTANTS.TITLE.HIGHLIGHT}</span>
+            {t('process.title.main')}{' '}
+            <span className="text-blue-400 font-medium">{t('process.title.highlight')}</span>
           </h2>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            {PROCESS_CONSTANTS.SUBTITLE}
+            {t('process.subtitle')}
           </p>
         </motion.div>
 
@@ -36,7 +39,7 @@ const ProcessJourney: React.FC<ProcessJourneyProps> = () => {
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="relative"
               >
                 {/* Connection Node */}
@@ -60,11 +63,11 @@ const ProcessJourney: React.FC<ProcessJourneyProps> = () => {
                   </div>
 
                   <h3 className="text-xl font-semibold text-white mb-2">
-                    {step.title}
+                    {t(`process.step${index + 1}.title`)}
                   </h3>
 
                   <p className="text-slate-400 text-sm mb-4 leading-relaxed">
-                    {step.description}
+                    {t(`process.step${index + 1}.description`)}
                   </p>
 
                   <div className="flex items-center justify-center space-x-2 text-blue-400">
@@ -87,18 +90,18 @@ const ProcessJourney: React.FC<ProcessJourneyProps> = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
           className="text-center mt-16"
         >
           <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 max-w-2xl mx-auto">
             <div className="flex items-center justify-center space-x-3 mb-4">
               <Lightbulb className="text-blue-400" size={32} />
               <h3 className="text-2xl font-semibold text-white">
-                {PROCESS_CONSTANTS.CTA.TITLE}
+                {t('process.cta.title')}
               </h3>
             </div>
-            <p className="text-slate-400 mb-6">
-              {PROCESS_CONSTANTS.CTA.DESCRIPTION}
+            <p className="text-xl text-white max-w-3xl mx-auto">
+              {t('process.cta.description')}
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -110,7 +113,7 @@ const ProcessJourney: React.FC<ProcessJourneyProps> = () => {
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0076e3'}
             >
               <Users size={20} />
-              <span>{PROCESS_CONSTANTS.CTA.BUTTON}</span>
+              <span>{t('process.cta.button')}</span>
             </motion.button>
           </div>
         </motion.div>

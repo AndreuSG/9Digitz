@@ -1,12 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import LanguageSelector from '../LanguageSelector';
 import { scrollToSection } from '../../utils/scrollUtils';
 import { NavbarProps } from './types';
 import { NAVBAR_CONSTANTS } from './constants';
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { t } = useLanguage();
 
   const handleNavClick = (href: string) => {
     const sectionId = href.replace('#', '');
@@ -44,31 +47,23 @@ const Navbar: React.FC<NavbarProps> = () => {
 
           {/* Navigation Menu - Center */}
           <div className="hidden md:flex items-center space-x-8 flex-1 justify-center">
-            {NAVBAR_CONSTANTS.NAV_ITEMS.map((item) => (
+            {NAVBAR_CONSTANTS.NAV_ITEMS.map((item, index) => (
               <button
-                key={item.label}
+                key={item.href}
                 onClick={() => handleNavClick(item.href)}
                 className="text-slate-700 hover:text-blue-600 transition-colors font-medium text-sm"
               >
-                {item.label}
+                {t(`nav.${['services', 'security', 'process', 'team', 'contact'][index]}`)}
               </button>
             ))}
           </div>
 
           {/* Icono 9Z y CTA - Right side */}
           <div className="flex items-center space-x-4">
-            {/* CTA Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection('contact')}
-              className="hidden md:block text-white px-4 py-2 rounded-full font-medium transition-colors text-sm"
-              style={{ backgroundColor: '#0076e3' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#005bb5')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0076e3')}
-            >
-              {NAVBAR_CONSTANTS.BUTTONS.CTA}
-            </motion.button>
+            {/* Language Selector */}
+            <div className="hidden md:block">
+              <LanguageSelector />
+            </div>
 
             {/* Icono 9Z */}
             <motion.img
@@ -81,8 +76,7 @@ const Navbar: React.FC<NavbarProps> = () => {
               initial={{ scale: 1.1 }}
               animate={{ scale: 1.1 }}
               style={{
-                willChange: 'transform',
-                filter: 'drop-shadow(0 6px 12px rgba(0,118,227,0.25)) drop-shadow(0 2px 4px rgba(0,118,227,0.15))'
+                willChange: 'transform'
               }}
             />
           </div>
@@ -105,25 +99,17 @@ const Navbar: React.FC<NavbarProps> = () => {
             className="md:hidden py-4 border-t border-slate-200/50"
           >
             <div className="flex flex-col space-y-4">
-              {NAVBAR_CONSTANTS.NAV_ITEMS.map((item) => (
+              {NAVBAR_CONSTANTS.NAV_ITEMS.map((item, index) => (
                 <button
-                  key={item.label}
+                  key={item.href}
                   onClick={() => handleNavClick(item.href)}
                   className="text-slate-700 hover:text-blue-600 transition-colors text-left"
                 >
-                  {item.label}
+                  {t(`nav.${['services', 'security', 'process', 'team', 'contact'][index]}`)}
                 </button>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-slate-200/50">
-                <button
-                  className="text-white px-6 py-2 rounded-full font-medium transition-colors w-fit"
-                  style={{ backgroundColor: '#0076e3' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#005bb5')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0076e3')}
-                  onClick={() => scrollToSection('contact')}
-                >
-                  {NAVBAR_CONSTANTS.BUTTONS.CTA}
-                </button>
+                <LanguageSelector />
               </div>
             </div>
           </motion.div>

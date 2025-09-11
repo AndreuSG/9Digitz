@@ -1,18 +1,5 @@
 import { ProcessStep } from './types';
 
-export const PROCESS_CONSTANTS = {
-  TITLE: {
-    MAIN: 'Nuestro',
-    HIGHLIGHT: 'proceso'
-  },
-  SUBTITLE: 'Un enfoque estructurado y transparente que garantiza el éxito de tu proyecto desde el primer día.',
-  CTA: {
-    TITLE: '¿Tienes una idea?',
-    DESCRIPTION: 'Convierte tu visión en realidad. Nuestro equipo de expertos está listo para hacer que tu proyecto sea un éxito.',
-    BUTTON: 'Hablar con un experto'
-  }
-};
-
 export const PROCESS_STEPS: ProcessStep[] = [
   {
     icon: './images/our_process/bombeta consulta inicial.png',

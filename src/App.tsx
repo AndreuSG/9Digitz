@@ -1,4 +1,5 @@
 import React from 'react';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ServicesSection from './components/ServicesSection';
@@ -13,19 +14,21 @@ import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   return (
-    <div className="bg-slate-900 min-h-screen">
-      <Navbar />
-      <Hero />
-      <ServicesSection />
-      <SecuritySection />
-      <ProcessJourney />
-      {/* <Testimonials /> */}
-      <TeamSection />
-      <ContactForm />
-      <CallToAction />
-      <Footer />
-      <WhatsAppButton />
-    </div>
+    <LanguageProvider>
+      <div className="bg-slate-900 min-h-screen">
+        <Navbar />
+        <Hero />
+        <ServicesSection />
+        <SecuritySection />
+        <ProcessJourney />
+        {/* <Testimonials /> */}
+        <TeamSection />
+        <ContactForm />
+        <CallToAction />
+        <Footer />
+        <WhatsAppButton />
+      </div>
+    </LanguageProvider>
   );
 }
 

@@ -1,11 +1,30 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { scrollToSection } from '../../utils/scrollUtils';
 import { ServiceModalProps } from './types';
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service }) => {
+  const { t } = useLanguage();
+  
   if (!service) return null;
+
+  // Get service key for translations
+  const getServiceKey = (serviceName: string) => {
+    if (serviceName.toLowerCase().includes('app')) return 'apps';
+    if (serviceName.toLowerCase().includes('marketing')) return 'marketing';
+    if (serviceName.toLowerCase().includes('cloud')) return 'cloud';
+    if (serviceName.toLowerCase().includes('ciberseguridad')) return 'security';
+    if (serviceName.toLowerCase().includes('voip')) return 'voip';
+    if (serviceName.toLowerCase().includes('operador')) return 'internet';
+    if (serviceName.toLowerCase().includes('cartelería')) return 'digital';
+    if (serviceName.toLowerCase().includes('pantallas')) return 'interactive';
+    if (serviceName.toLowerCase().includes('audiovisual')) return 'audiovisual';
+    return 'microsoft';
+  };
+
+  const serviceKey = getServiceKey(service.name);
 
   const handleContactClick = () => {
     onClose();
@@ -79,10 +98,10 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service })
                   {/* Description */}
                   <div>
                     <h3 className="text-2xl font-semibold text-slate-900 mb-4">
-                      Descripción completa
+                      {t('modal.fullDescription')}
                     </h3>
                     <p className="text-slate-600 leading-relaxed mb-6">
-                      {service.details.fullDescription}
+                      {t(`services.${serviceKey}.fullDescription`)}
                     </p>
 
                     <motion.button
@@ -94,7 +113,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service })
                       onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#005bb5'}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0076e3'}
                     >
-                      <span>Solicitar información</span>
+                      <span>{t('modal.requestInfo')}</span>
                       <ArrowRight size={18} />
                     </motion.button>
                   </div>
@@ -104,10 +123,10 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service })
                     {/* Features */}
                     <div>
                       <h4 className="text-xl font-semibold text-slate-900 mb-3">
-                        Características principales
+                        {t('modal.features')}
                       </h4>
                       <div className="space-y-2">
-                        {service.details.features.map((feature, index) => (
+                        {[0, 1, 2, 3].map((index) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, x: -20 }}
@@ -116,7 +135,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service })
                             className="flex items-center space-x-3"
                           >
                             <CheckCircle className="text-blue-500 flex-shrink-0" size={18} />
-                            <span className="text-slate-700">{feature}</span>
+                            <span className="text-slate-700">{t(`services.${serviceKey}.features.${index}`)}</span>
                           </motion.div>
                         ))}
                       </div>
@@ -125,19 +144,19 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service })
                     {/* Benefits */}
                     <div>
                       <h4 className="text-xl font-semibold text-slate-900 mb-3">
-                        Beneficios
+                        {t('modal.benefits')}
                       </h4>
                       <div className="space-y-2">
-                        {service.details.benefits.map((benefit, index) => (
+                        {[0, 1, 2, 3].map((index) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: (service.details.features.length + index) * 0.1 }}
+                            transition={{ delay: (4 + index) * 0.1 }}
                             className="flex items-center space-x-3"
                           >
                             <div className="w-2 h-2 bg-blue-400 rounded-full flex-shrink-0" />
-                            <span className="text-slate-700">{benefit}</span>
+                            <span className="text-slate-700">{t(`services.${serviceKey}.benefits.${index}`)}</span>
                           </motion.div>
                         ))}
                       </div>

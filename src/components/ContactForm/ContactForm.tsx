@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, User, Mail, Phone, CheckCircle, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { BlueToWhiteGradient } from '../BackgroundGradients';
 import { ContactFormProps, FormData } from './types';
-import { CONTACT_CONSTANTS, WHY_CHOOSE_US, DIRECT_CONTACT_INFO, SERVICES_OPTIONS } from './constants';
 
 const ContactForm: React.FC<ContactFormProps> = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -44,6 +45,33 @@ const ContactForm: React.FC<ContactFormProps> = () => {
     }, 2000);
   };
 
+  const whyChooseUs = [
+    { icon: './images/our_process/cohet desenvolupament.png', text: t('contact.whyChoose.response') },
+    { icon: './images/our_process/bombeta consulta inicial.png', text: t('contact.whyChoose.consultation') },
+    { icon: './images/icons/apps i webs_Mesa de trabajo 1.png', text: t('contact.whyChoose.solutions') },
+    { icon: './images/icons/ciberseguretat_Mesa de trabajo 1.png', text: t('contact.whyChoose.confidentiality') }
+  ];
+
+  const directContactInfo = [
+    { icon: Phone, text: t('contact.directContact.phone') },
+    { icon: Mail, text: t('contact.directContact.email') },
+    { icon: AlertCircle, text: t('contact.directContact.chat') }
+  ];
+
+  const servicesOptions = [
+    t('services.apps.name'),
+    t('services.marketing.name'),
+    t('services.cloud.name'),
+    t('services.security.name'),
+    t('services.voip.name'),
+    t('services.internet.name'),
+    t('services.digital.name'),
+    t('services.interactive.name'),
+    t('services.audiovisual.name'),
+    t('services.microsoft.name'),
+    'Otro'
+  ];
+
   return (
     <BlueToWhiteGradient>
       <section id="contact" className="py-32 relative overflow-hidden">
@@ -67,15 +95,15 @@ const ContactForm: React.FC<ContactFormProps> = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-light text-white mb-6">
-            {CONTACT_CONSTANTS.TITLE.MAIN}{' '}
-            <span className="text-blue-400 font-medium">{CONTACT_CONSTANTS.TITLE.HIGHLIGHT}</span>
+            {t('contact.title.main')}{' '}
+            <span className="text-white font-medium">{t('contact.title.highlight')}</span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            {CONTACT_CONSTANTS.SUBTITLE}
+          <p className="text-xl text-white max-w-3xl mx-auto">
+            {t('contact.subtitle')}
           </p>
         </motion.div>
 
@@ -84,20 +112,20 @@ const ContactForm: React.FC<ContactFormProps> = () => {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.4 }}
             className="space-y-8"
           >
             <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8">
               <h3 className="text-2xl font-semibold text-white mb-6">
-                {CONTACT_CONSTANTS.WHY_CHOOSE_TITLE}
+                {t('contact.whyChoose.title')}
               </h3>
               <div className="space-y-4">
-                {WHY_CHOOSE_US.map((item, index) => (
+                {whyChooseUs.map((item, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.25, delay: index * 0.05 }}
                     className="flex items-center space-x-3"
                   >
                     <div className="w-8 h-8 flex-shrink-0">
@@ -115,10 +143,10 @@ const ContactForm: React.FC<ContactFormProps> = () => {
 
             <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8">
               <h3 className="text-2xl font-semibold text-white mb-6">
-                {CONTACT_CONSTANTS.DIRECT_CONTACT_TITLE}
+                {t('contact.directContact.title')}
               </h3>
               <div className="space-y-4">
-                {DIRECT_CONTACT_INFO.map((contact, index) => (
+                {directContactInfo.map((contact, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <contact.icon className="text-white" size={20} />
                     <span className="text-slate-300">{contact.text}</span>
@@ -132,7 +160,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
           >
             <form onSubmit={handleSubmit} className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8">
               <div className="space-y-6">
@@ -140,10 +168,10 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
+                  transition={{ duration: 0.25, delay: 0.05 }}
                 >
                   <label className="block text-white font-medium mb-2">
-                    {CONTACT_CONSTANTS.FORM_LABELS.NAME}
+                    {t('contact.form.name')}
                   </label>
                   <div className="relative">
                     <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
@@ -154,7 +182,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                       onChange={handleChange}
                       required
                       className="w-full bg-slate-700/50 border border-slate-600 rounded-2xl pl-12 pr-4 py-4 text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
-                      placeholder={CONTACT_CONSTANTS.PLACEHOLDERS.NAME}
+                      placeholder={t('contact.placeholders.name')}
                     />
                   </div>
                 </motion.div>
@@ -163,10 +191,10 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
+                  transition={{ duration: 0.25, delay: 0.1 }}
                 >
                   <label className="block text-white font-medium mb-2">
-                    {CONTACT_CONSTANTS.FORM_LABELS.EMAIL}
+                    {t('contact.form.email')}
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
@@ -177,7 +205,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                       onChange={handleChange}
                       required
                       className="w-full bg-slate-700/50 border border-slate-600 rounded-2xl pl-12 pr-4 py-4 text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
-                      placeholder={CONTACT_CONSTANTS.PLACEHOLDERS.EMAIL}
+                      placeholder={t('contact.placeholders.email')}
                     />
                   </div>
                 </motion.div>
@@ -186,10 +214,10 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
+                  transition={{ duration: 0.25, delay: 0.15 }}
                 >
                   <label className="block text-white font-medium mb-2">
-                    {CONTACT_CONSTANTS.FORM_LABELS.PHONE}
+                    {t('contact.form.phone')}
                   </label>
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
@@ -199,7 +227,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full bg-slate-700/50 border border-slate-600 rounded-2xl pl-12 pr-4 py-4 text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
-                      placeholder={CONTACT_CONSTANTS.PLACEHOLDERS.PHONE}
+                      placeholder={t('contact.placeholders.phone')}
                     />
                   </div>
                 </motion.div>
@@ -208,10 +236,10 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
+                  transition={{ duration: 0.25, delay: 0.2 }}
                 >
                   <label className="block text-white font-medium mb-2">
-                    {CONTACT_CONSTANTS.FORM_LABELS.SERVICE}
+                    {t('contact.form.service')}
                   </label>
                   <select
                     name="service"
@@ -219,8 +247,8 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                     onChange={handleChange}
                     className="w-full bg-slate-700/50 border border-slate-600 rounded-2xl px-4 py-4 text-white focus:outline-none focus:border-blue-400 transition-colors"
                   >
-                    <option value="">{CONTACT_CONSTANTS.PLACEHOLDERS.SERVICE}</option>
-                    {SERVICES_OPTIONS.map((service) => (
+                    <option value="">{t('contact.placeholders.service')}</option>
+                    {servicesOptions.map((service) => (
                       <option key={service} value={service}>
                         {service}
                       </option>
@@ -232,10 +260,10 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
+                  transition={{ duration: 0.25, delay: 0.25 }}
                 >
                   <label className="block text-white font-medium mb-2">
-                    {CONTACT_CONSTANTS.FORM_LABELS.MESSAGE}
+                    {t('contact.form.message')}
                   </label>
                   <textarea
                     name="message"
@@ -244,7 +272,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                     required
                     rows={4}
                     className="w-full bg-slate-700/50 border border-slate-600 rounded-2xl px-4 py-4 text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors resize-none"
-                    placeholder={CONTACT_CONSTANTS.PLACEHOLDERS.MESSAGE}
+                    placeholder={t('contact.placeholders.message')}
                   />
                 </motion.div>
 
@@ -252,7 +280,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
+                  transition={{ duration: 0.25, delay: 0.3 }}
                 >
                   <motion.button
                     type="submit"
@@ -276,7 +304,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                     ) : (
                       <>
                         <Send size={20} />
-                        <span>{CONTACT_CONSTANTS.BUTTON_TEXT}</span>
+                        <span>{t('contact.button')}</span>
                       </>
                     )}
                   </motion.button>
@@ -290,7 +318,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                     className="flex items-center space-x-2 text-green-300 bg-green-400/10 border border-green-400/30 rounded-2xl p-4"
                   >
                     <CheckCircle size={20} />
-                    <span>{CONTACT_CONSTANTS.SUCCESS_MESSAGE}</span>
+                    <span>{t('contact.success')}</span>
                   </motion.div>
                 )}
 
@@ -301,7 +329,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
                     className="flex items-center space-x-2 text-red-300 bg-red-400/10 border border-red-400/30 rounded-2xl p-4"
                   >
                     <AlertCircle size={20} />
-                    <span>{CONTACT_CONSTANTS.ERROR_MESSAGE}</span>
+                    <span>{t('contact.error')}</span>
                   </motion.div>
                 )}
               </div>

@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Heart, Users, Mail } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { JobModalProps } from './types';
 
 const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose }) => {
+  const { t } = useLanguage();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -47,10 +50,10 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose }) => {
                 </motion.div>
 
                 <h2 className="text-xl font-bold text-white mb-2">
-                  ¡Gracias por tu interés!
+                  {t('jobModal.title')}
                 </h2>
                 <p className="text-blue-100">
-                  Nos emociona saber que quieres formar parte de 9DIGITZ
+                  {t('jobModal.subtitle')}
                 </p>
               </div>
 
@@ -66,11 +69,10 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose }) => {
                     <Heart className="text-blue-500" size={20} />
                   </div>
                   <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                    Actualmente no tenemos ofertas disponibles
+                    {t('jobModal.noPositions.title')}
                   </h3>
                   <p className="text-slate-600 leading-relaxed text-sm">
-                    Pero siempre estamos buscando talento excepcional. 
-                    Te invitamos a enviarnos tu CV para futuras oportunidades.
+                    {t('jobModal.noPositions.description')}
                   </p>
                 </motion.div>
 
@@ -83,11 +85,13 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose }) => {
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#005bb5'}
                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0076e3'}
                     onClick={() => {
-                      window.location.href = 'mailto:info@9digitz.com.com?subject=Candidatura Espontánea&body=Hola, me gustaría formar parte del equipo de 9DIGITZ...';
+                      const subject = encodeURIComponent('Candidatura Espontánea');
+                      const body = encodeURIComponent('Hola, me gustaría formar parte del equipo de 9DIGITZ...');
+                      window.location.href = `mailto:info@9digitz.com?subject=${subject}&body=${body}`;
                     }}
                   >
                     <Mail size={18} />
-                    <span>Enviar CV</span>
+                    <span>{t('jobModal.sendCV')}</span>
                   </motion.button>
 
                   <motion.button
@@ -96,12 +100,12 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose }) => {
                     onClick={onClose}
                     className="w-full border border-slate-300 text-slate-700 py-3 rounded-full font-medium hover:bg-slate-50 transition-colors"
                   >
-                    Cerrar
+                    {t('jobModal.close')}
                   </motion.button>
                 </div>
 
                 <div className="mt-4 text-xs text-slate-500">
-                  Te notificaremos cuando tengamos nuevas oportunidades
+                  {t('jobModal.notification')}
                 </div>
               </div>
             </motion.div>
